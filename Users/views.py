@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from Users.forms import UserRegisterForm
+from Users.forms import UserRegisterForm, UserEditForm
 # Login/Logout/CreateUser
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -45,3 +45,42 @@ def login_request(request):
     
     form = AuthenticationForm()
     return render(request, "Users/login.html", {"form":form})
+
+@login_required
+def edit(request):
+    
+    user = request.user
+    
+    if request.method == "POST":
+        form = UserEditForm(request.POST)
+        
+        if form.is_valid():
+            
+            info = form.cleaned_data
+            
+            if info["password1"] != info["password2"]:
+                data = {
+                    'first_name': user.first_name,
+                    'email': user.email
+                }
+                form = UserEditForm(initial=data)
+            
+            else:
+                user.email= info['email']
+                user.set_password(info['password1'])
+                user.name = info['first_name']
+                user.surname = info['last_name']
+                
+                user.save()
+            
+                return render(request, "Principal/index.html")
+        
+    else:
+        data = {
+            'first_name': user.first_name,
+            'email': user.email
+        }
+        form = UserEditForm(initial=data)
+    return render(request, "Users/edit.html", {"form": form, "user": user})
+    
+    

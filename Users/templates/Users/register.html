@@ -1,15 +1,17 @@
-{% extends "Users/father.html" %}
+{% extends "Principal/father.html" %}
 {% load static %}
 
 {% block section1 %}
 
-    <h2>{{ mensaje }}</h2>
+    <div class="d-flex justify-content-center">
+        <h2>{{ mensaje }}</h2>
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrar</button>
 
-    </form>
+        </form>
+    </div>
 
 {% endblock section1 %}
