@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Users.forms import UserRegisterForm, UserEditForm
+from Users.models import Avatar
 # Login/Logout/CreateUser
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -49,10 +50,10 @@ def login_request(request):
 @login_required
 def edit(request):
     
-    user = request.user
+    usuario = request.user
     
     if request.method == "POST":
-        form = UserEditForm(request.POST)
+        form = UserEditForm(request.POST, request.FILES)
         
         if form.is_valid():
             
@@ -60,27 +61,31 @@ def edit(request):
             
             if info["password1"] != info["password2"]:
                 data = {
-                    'first_name': user.first_name,
-                    'email': user.email
+                    'first_name': usuario.first_name,
+                    'email': usuario.email
                 }
                 form = UserEditForm(initial=data)
             
             else:
-                user.email= info['email']
-                user.set_password(info['password1'])
-                user.name = info['first_name']
-                user.surname = info['last_name']
+                usuario.email= info['email']
+                if info["password1"]:
+                    usuario.set_password(info['password1'])
+                usuario.first_name = info['first_name']
+                usuario.last_name = info['last_name']
+                usuario.save()
                 
-                user.save()
-            
+                avatar = Avatar.objects.get(user=usuario)
+                avatar.imagen = info["imagen"]
+                avatar.save()
+                    
                 return render(request, "Principal/index.html")
         
     else:
         data = {
-            'first_name': user.first_name,
-            'email': user.email
+            'first_name': usuario.first_name,
+            'email': usuario.email
         }
         form = UserEditForm(initial=data)
-    return render(request, "Users/edit.html", {"form": form, "user": user})
+    return render(request, "Users/edit.html", {"form": form, "user": usuario})
     
     
