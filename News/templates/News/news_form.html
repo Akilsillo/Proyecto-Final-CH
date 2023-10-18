@@ -1,0 +1,16 @@
+{% extends "Principal/father.html" %}
+{% load static %}
+
+{% block section1 %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <table>
+            {{ form.as_table}}
+        </table>
+
+        <input type="submit" value="Subir noticia">
+    </form>
+
+{% endblock section1 %}

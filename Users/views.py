@@ -74,9 +74,14 @@ def edit(request):
                 usuario.last_name = info['last_name']
                 usuario.save()
                 
-                avatar = Avatar.objects.get(user=usuario)
-                avatar.imagen = info["imagen"]
-                avatar.save()
+                try:
+                    avatar = Avatar.objects.get(user=usuario)
+                except Avatar.DoesNotExist:
+                    avatar = Avatar(user=usuario, imagen=info["imagen"])
+                    avatar.save()
+                else:
+                    avatar.imagen = info["imagen"]
+                    avatar.save()
                     
                 return render(request, "Principal/index.html")
         
