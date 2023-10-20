@@ -11,9 +11,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class NewsListView(ListView):
     model = NewsItem
     template_name = "News/news_list.html"
+    context_object_name = "objects"
     
 class NewsFormView(LoginRequiredMixin ,CreateView):
     model = NewsItem
     template_name = "News/news_form.html"
     success_url = reverse_lazy("NewsForm")
     fields = ["title", "date", "preview", "full_view", "image"]
+    
+    def form_valid(self, form):
+        form.instance.image = self.request.FILES.get('image')
+        return super().form_valid(form)
