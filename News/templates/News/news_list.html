@@ -3,21 +3,27 @@
 
 {% block section1 %}
 
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{% url 'NewsForm' %}">Agregar</a>
+    </div>
+    <br>
     {% for news_item in objects %}
-    <div class="container"></div>
+    <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <!-- Blog post-->
                 <div class="card mb-4">
                     {% if news_item.image%}
-                    <a href="#!"><img class="card-img-top" src="{{ news_item.image.url }}" alt="..." /></a>
+                    <a href="#!"><img class="card-img-top" src="{{ news_item.image.url }}" alt="..." width="700px" height="350px"/></a>
                     {% endif %}
                     <div class="card-body">
                         <div class="small text-muted">{{news_item.date}}</div>
                         <h2 class="card-title h4">{{news_item.title}}</h2>
                         <p class="card-text">{{news_item.preview}}</p>
-                        <p class="card-text">{{news_item.full_view}}</p>
-                        <a class="btn btn-primary" href="#!">Read more →</a>
+                        <a class="btn btn-primary" href="{% url 'NewsDetail' news_item.id %}">Read more →</a>
+                        {% if request.user.is_superuser %}
+                            <a class="btn btn-primary" href="{% url 'NewsDelete' news_item.id %}">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -25,4 +31,7 @@
     </div>
     {% endfor %}
 
+
+
 {% endblock section1 %}
+

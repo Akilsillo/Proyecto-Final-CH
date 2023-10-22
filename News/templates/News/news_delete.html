@@ -1,0 +1,13 @@
+{% extends "Principal/father.html" %}
+{% load static %}
+
+{% block section1 %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <p>¿Estás seguro que deseas borrar la noticia: "{{ object.title }}"</p>
+        <input type="submit" value="Borrar">
+    </form>
+
+{% endblock section1 %}

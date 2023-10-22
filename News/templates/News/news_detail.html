@@ -1,0 +1,29 @@
+{% extends "Principal/father.html" %}
+{% load static %}
+
+{% block section1 %}
+
+    <h1 class="d-flex justify-content-center">{{object.title}}</h1>
+    <br>
+
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <!-- Blog post-->
+                <div class="card mb-4">
+                    {% if object.image %}
+                    <a href="#!"><img class="card-img-top" src="{{ object.image.url }}" alt="..." width="700px" height="350px"/></a>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="small text-muted">{{object.date}}</div>
+                        <br>
+                        <p class="card-text">{{object.preview}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex magnam repellendus, voluptas soluta ea perferendis at tempore inventore unde rerum quaerat blanditiis vitae quas deserunt impedit? Tempore omnis minus alias!</p>
+                        <p class="card-text">{{object.full_view}} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque aut eveniet, quis nemo esse debitis facere excepturi facilis sunt delectus vel dolores numquam. Ea officiis ex cupiditate temporibus, eligendi ducimus.</p>
+                    </div>
+                    <a class="btn btn-primary" href="{% url 'News' %}">Back</a>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock section1 %}

@@ -6,3 +6,7 @@ from Users.models import Avatar
 def home(request):
 
     return render(request, "Principal/index.html")
+
+def about(request):
+    
+    return render(request, "Principal/about.html")
