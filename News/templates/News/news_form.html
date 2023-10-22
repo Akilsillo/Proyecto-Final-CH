@@ -2,15 +2,14 @@
 {% load static %}
 
 {% block section1 %}
-
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <table>
-            {{ form.as_table}}
-        </table>
-
-        <input type="submit" value="Subir noticia">
-    </form>
+    <div class="d-flex justify-content-center">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table}}
+            </table>
+            <input type="submit" value="Subir noticia">
+        </form>
+    </div>
 
 {% endblock section1 %}

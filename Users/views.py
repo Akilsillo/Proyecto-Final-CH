@@ -42,7 +42,7 @@ def login_request(request):
             
         else:
             form = AuthenticationForm()
-            return render(request, "Users/login.html", {"mensaje":f"Error, formulario inválido"})
+            return render(request, "Users/login.html", {"mensaje":f"Error, formulario inválido", "form":form})
     
     form = AuthenticationForm()
     return render(request, "Users/login.html", {"form":form})
