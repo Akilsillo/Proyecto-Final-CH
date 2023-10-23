@@ -10,3 +10,5 @@ Este proyecto en un pequeño blog de noticias sobre videojuegos, basicamente con
 como la lista de noticias, la view para leer el detalle de la noticia, el formulario para añadir una noticia y la opcion para borrar una noticia, para la cual se necesita estar registrado como superuser.
 
 3- La app "Principal" donde se encuentra el index y la pagina "About".
+
+Por ultimo dejo el enlace al video explicativo: https://drive.google.com/file/d/1d2HbHtfZOVijumQo-GHPN0DrxAkM1Tqg/view?usp=share_link
